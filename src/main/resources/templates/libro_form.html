@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Libros</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Biblioteca</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Autor
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/autor/registrar">Agregar</a></li>
+              <li><a class="dropdown-item" href="#">Modificar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Editorial
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/editorial/registrar">Agregar</a></li>
+              <li><a class="dropdown-item" href="#">Modificar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Libro
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/editorial/registrar">Agregar</a></li>
+              <li><a class="dropdown-item" href="#">Modificar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="container">
+    <h2 class="text-center">Agregar Libro</h2>
+    <form action="/libro/registro" method="POST">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="ISBN" name="isbn">
+        <label for="floatingInput"> ISBN </label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingTitle" placeholder="Titulo del Libro" name="titulo">
+        <label for="floatingTitle"> Titulo del libro </label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingEjem" placeholder="Ejemplares del Libro" name="ejemplares">
+        <label for="floatingEjem"> Ejemplares del libro </label>
+      </div>
+
+      <select name="idAutor" class="form-select mb-3" aria-label="Default select example">
+        <option>Seleccionar Autor</option>
+        <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"/>
+      </select>
+      <select name="idEditorial" class="form-select mb-3" aria-label="Default select example">
+        <option>Seleccionar Editorial</option>
+        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"/>
+      </select>
+
+      <div th:if="${error != null}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+      </div>
+      <div th:if="${exito != null}" class="alert alert-success" role="alert">
+        <p th:text="${exito}"></p>
+      </div>
+      <button type="submit" class="btn btn-dark"> Subir </button>
+    </form>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
